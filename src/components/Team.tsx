@@ -29,7 +29,7 @@ export const Team = () => {
             >
               <Avatar className="w-24 h-24 mx-auto mb-6 group-hover:glow-green transition-all">
                 <AvatarFallback className="text-2xl font-bold bg-gradient-to-r from-neon-green to-neon-blue text-background">
-                  {member.initials}
+                  <img src = "https://media.licdn.com/dms/image/v2/D5603AQGHlvPTk1ZPfg/profile-displayphoto-scale_400_400/B56Zn9RaT4I0Ak-/0/1760890825900?e=1764806400&v=beta&t=gAM0sI8_t8Q4CDJwJlDF4knJLfHyUjfKTz9PWrCD-eQ" />
                 </AvatarFallback>
               </Avatar>
               
