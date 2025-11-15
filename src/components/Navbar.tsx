@@ -1,10 +1,21 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut, User } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +24,29 @@ export const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast.success("Signed out successfully");
+    } catch (error: any) {
+      toast.error("Failed to sign out");
+    }
+  };
 
   const menuItems = [
     { label: "Problem", href: "#problem" },
@@ -45,9 +79,26 @@ export const Navbar = () => {
                 {item.label}
               </a>
             ))}
-            <Button size="sm" className="bg-primary hover:bg-primary/90">
-              Download
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="sm" className="bg-gradient-to-r from-neon-green to-neon-blue">
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="glass-card">
+                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button size="sm" onClick={() => navigate('/auth')} className="bg-primary hover:bg-primary/90">
+                Sign In
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -72,9 +123,16 @@ export const Navbar = () => {
                 {item.label}
               </a>
             ))}
-            <Button size="sm" className="w-full bg-primary hover:bg-primary/90">
-              Download
-            </Button>
+            {user ? (
+              <Button size="sm" onClick={handleSignOut} className="w-full bg-gradient-to-r from-neon-green to-neon-blue">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
+            ) : (
+              <Button size="sm" onClick={() => navigate('/auth')} className="w-full bg-primary hover:bg-primary/90">
+                Sign In
+              </Button>
+            )}
           </div>
         )}
       </div>

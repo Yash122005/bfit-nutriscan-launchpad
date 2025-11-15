@@ -1,8 +1,28 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Play, Smartphone } from "lucide-react";
+import { Play, Smartphone, Scan } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import heroScan from "@/assets/hero-scan.jpg";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       <div className="absolute inset-0 gradient-hero opacity-30" />
@@ -21,10 +41,17 @@ export const Hero = () => {
               An AI-powered app that instantly provides accurate nutritional information by scanning any food product.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="text-lg h-14 px-8 animate-glow-pulse bg-primary hover:bg-primary/90">
-                <Smartphone className="mr-2 h-5 w-5" />
-                Download App
-              </Button>
+              {user ? (
+                <Button size="lg" className="text-lg h-14 px-8 animate-glow-pulse bg-gradient-to-r from-neon-green to-neon-blue hover:opacity-90">
+                  <Scan className="mr-2 h-5 w-5" />
+                  Scan Now
+                </Button>
+              ) : (
+                <Button size="lg" onClick={() => navigate('/auth')} className="text-lg h-14 px-8 animate-glow-pulse bg-primary hover:bg-primary/90">
+                  <Smartphone className="mr-2 h-5 w-5" />
+                  Download App
+                </Button>
+              )}
               <Button size="lg" variant="outline" className="text-lg h-14 px-8 glass-card hover:bg-white/10">
                 <Play className="mr-2 h-5 w-5" />
                 Watch Demo
