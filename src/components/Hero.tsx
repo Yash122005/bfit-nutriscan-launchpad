@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Play, Smartphone, Scan } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Play, Smartphone, Scan, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import heroScan from "@/assets/hero-scan.jpg";
 
 export const Hero = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
+  const [showVideoDialog, setShowVideoDialog] = useState(false);
 
   useEffect(() => {
     // Get initial session
@@ -52,7 +54,12 @@ export const Hero = () => {
                   Download App
                 </Button>
               )}
-              <Button size="lg" variant="outline" className="text-lg h-14 px-8 glass-card hover:bg-white/10">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => setShowVideoDialog(true)}
+                className="text-lg h-14 px-8 glass-card hover:bg-white/10"
+              >
                 <Play className="mr-2 h-5 w-5" />
                 Watch Demo
               </Button>
@@ -70,6 +77,22 @@ export const Hero = () => {
           </div>
         </div>
       </div>
+
+      <Dialog open={showVideoDialog} onOpenChange={setShowVideoDialog}>
+        <DialogContent className="max-w-5xl p-0 bg-background/95 backdrop-blur-xl border-primary/20">
+          <DialogTitle className="sr-only">Product Demo Video</DialogTitle>
+          <div className="relative aspect-video w-full overflow-hidden rounded-lg">
+            <video
+              className="w-full h-full object-cover"
+              controls
+              autoPlay
+              src="/videos/demo.mp4"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
