@@ -62,7 +62,7 @@ export const Testimonials = () => {
         <div
           className="flex gap-6"
           style={{
-            animation: isPaused ? "none" : "scroll 40s linear infinite",
+            animation: isPaused ? "none" : "scroll 25s linear infinite",
           }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
