@@ -36,7 +36,7 @@ export default function Download() {
               className="w-full sm:w-auto text-lg h-16 px-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
             >
               <Smartphone className="mr-3 h-6 w-6" />
-              Download App
+              App Launch Soon...
             </Button>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
