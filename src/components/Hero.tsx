@@ -49,7 +49,7 @@ export const Hero = () => {
                   Scan Now
                 </Button>
               ) : (
-                <Button size="lg" onClick={() => navigate('/auth')} className="text-lg h-14 px-8 animate-glow-pulse bg-primary hover:bg-primary/90">
+                <Button size="lg" onClick={() => navigate('/download')} className="text-lg h-14 px-8 animate-glow-pulse bg-primary hover:bg-primary/90">
                   <Smartphone className="mr-2 h-5 w-5" />
                   Download App
                 </Button>
