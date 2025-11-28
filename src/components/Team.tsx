@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const team = [
   { name: "Pratyush Tripathi", role: "CSE", initials: "PT", image: "https://media.licdn.com/dms/image/v2/D4E03AQGGlxSPknL8CQ/profile-displayphoto-shrink_400_400/B4EZYt1drVHYAg-/0/1744525713107?e=1764806400&v=beta&t=dd2Y7j07PUYf-H1faWxHvAZPBzeMM93sjs8BlEwmwms" },
   { name: "Yash Gupta", role: "ECE", initials: "YG", image: "https://media.licdn.com/dms/image/v2/D5603AQGHlvPTk1ZPfg/profile-displayphoto-scale_200_200/B56Zn9RaT4I0Ac-/0/1760890825900?e=1764806400&v=beta&t=p__-yML69FD4Ct1eMzAGOeo04u-MEEZi0ia2r7ocTsY" },
-  { name: "Pratiraj Sinha", role: "AI-ML", initials: "PS" },
+  { name: "Pratiraj Sinha", role: "AI-ML", initials: "PS", image: "https://instagram.fccu20-1.fna.fbcdn.net/v/t51.2885-19/521534321_18035800151655745_4587456872124883588_n.jpg?stp=dst-jpg_s320x320_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xMDgwLmMyIn0&_nc_ht=instagram.fccu20-1.fna.fbcdn.net&_nc_cat=101&_nc_oc=Q6cZ2QFLpXFvKfiByccOXN3GB2Xp07KHp2xIeXmaBz6HHyNrAhhBGFj--Wa49Roraef49h0&_nc_ohc=J2EaMNSdkqUQ7kNvwFnXOoz&_nc_gid=evsoIZ7JSKt3xF5KEaaz4A&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfgMMkmXnp4i0X49Davhh-BIC_Rrq-5rmAWVeDLi1qH33w&oe=692F132B&_nc_sid=8b3546" },
   { name: "Kunal Verma", role: "AI-ML", initials: "KV" },
   { name: "Saurav", role: "ECE", initials: "SV" },
   { name: "Adarsh Raj", role: "CSE", initials: "AR" },
